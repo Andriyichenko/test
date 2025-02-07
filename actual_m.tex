@@ -1,0 +1,235 @@
+\documentclass[a4paper,11pt]{jsarticle}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\usepackage{otf}
+\usepackage{xspace}
+\usepackage{newpxtext}
+\renewcommand{\abstractname}{注意事項}
+% \renewcommand{\qed}{\unskip\nobreak\quad\qedsymbol}
+\newtagform{textbf}[\textbf]{[}{]}
+\usetagform{textbf}
+\newcommand*{\ie}{\textbf{\textit{i.e.}}\@\xspace}
+% \usepackage[a4paper, top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\title{\vspace{-4cm}アクチュアリーのレポート問題}
+\author{YI Ran-21122200512}
+\date{\today}
+\begin{document}
+\maketitle
+%%%概要を出力したい人はこのように記述
+\vspace{-0.4cm}
+\section*{解答}
+\begin{proof}[\textbf{proof\quad 1.1}]
+制約条件を考えて、ラグランジアン関数$\mathcal{L}$を以下のように定義する
+\begin{equation*}
+\mathcal{L}(\mathbf{w} ,\mathbf{\nu} ,\lambda)=\mu ' \mathbf{w}-\lambda(\mathbf{1}' \mathbf{w})-\mathbf{\nu}(\mathbf{w}' \mathbf{S} \mathbf{w}-c^2)\quad (\iota を ベクトル \mathbf{1}とする)
+\end{equation*}
+ここで、$\lambda$ と $\mathbf{\nu}$はラグランジュ乗数である。\\
+それから、、ラグランジアンを $\mathbf{w}$について偏微分し、0とすると\\
+$$\dfrac{\partial\mathcal{L}}{\partial\mathbf{w}}=\mu-\lambda \mathbf{1}-2 \mathbf{\nu} \mathbf{S} \mathbf{w}=0$$
+以上の式を整理すると、\\
+$$2 \mathbf{\nu} \mathbf{S} \mathbf{w} = \mathbf{\mu}-\lambda \mathbf{1}$$
+よって、\\
+$$ \mathbf{w} = \dfrac{\mathbf{S}^{-1}(\mathbf{\mu}-\lambda \mathbf{1})}{2 \mathbf{\nu}} $$
+$\mathbf{1} \mathbf{w} = 0$によって、\\
+$$ \mathbf{1}'\mathbf{w} = \dfrac{\mathbf{1}' \mathbf{S}^{-1}(\mathbf{\nu}-\mathbf{\lambda \mathbf{1}})}{2 \mathbf{\nu}} = 0 $$
+計算すると、\\
+$$ \mathbf{\lambda} = \dfrac{\mathbf{1}' \mathbf{S}^{-1}\mathbf{\mu}}{\mathbf{1}' \mathbf{S}^{-1} \mathbf{1}}$$
+
+$\xi = \mu-\dfrac{\mu ' \mathbf{S}^{-1}\mathbf{1}}{\mathbf{1}' \mathbf{S}^{-1} \mathbf{1}} \mathbf{1}$ とおくと、\\
+$\because \sigma_p = c \qquad\textbf{\textit{ i.e. }} \sigma_p^2 = \mathbf{w}' \mathbf{S} \mathbf{w} = c^2$\\
+$ \therefore $\\
+\[  
+\mathbf{w}' \mathbf{S} \mathbf{w} = \left( \frac{1}{2\nu} \xi' \mathbf{S}^{-1} \right) \mathbf{S} \left( \frac{1}{2\nu} \mathbf{S}^{-1} \xi \right) = \frac{1}{4\nu^2} \xi' \mathbf{S}^{-1} \mathbf{S} \mathbf{S}^{-1} \xi = \frac{1}{4\nu^2} \xi' \mathbf{S}^{-1} \xi = c^2  
+\]
+簡略化すると\\
+$$\dfrac{1}{4\nu^2}\xi'-\mathbf{S}^{-1}\xi  = c^2$$
+$$\nu^2 = \dfrac{\xi'\mathbf{S}^{-1}\xi}{4c^2}$$
+$$\nu = \dfrac{\sqrt{\xi'\mathbf{S}^{-1}\xi}}{2c}$$ 
+よって、 $\nu$を $\mathbf{w}$に代入すると\\
+$$
+\mathbf{w} 
+  = \dfrac{1}{2 \nu}\mathbf{S}^{-1}\xi 
+  =c\dfrac{\mathbf{S}^{-1}\xi}{\textstyle\sqrt{\xi' \mathbf{S}^{-1}\xi}} 
+  =c\dfrac{\mathbf{S}^{-1}\xi}{\|\xi\|}
+$$
+\end{proof}
+
+
+\begin{proof}[\textbf{proof\quad 1.2}]
+効率的フロンティア(EF)は、ある期待リターンに対して最小のリスクを持つポートフォリオの集合である。\\
+まず、与えられたポートフォリオ $\mathbf{w}_p$の期待リターン $\mu_p$ と $\sigma_p$ を計算すると\\
+$$ \mu_p = \mathbf{\mu}' \mathbf{w}_p  = \mathbf{\mu}'(\mathbf{w}_g + \mathbf{w}) = \mathbf{\mu}' \mathbf{w}_g + \mathbf{\mu}' \mathbf{w} = \mathbf{\mu}' \mathbf{w}_g + \mathbf{\mu}'(c\dfrac{\mathbf{S}^{-1}\xi}{\|\xi\|})$$
+ここで、$\mathbf{w}_g$は最小分散ポートフォリオ(GMVP)であり、$\mathbf{w}_g = \dfrac{\mathbf{S}^{-1}}{\mathbf{1}' \mathbf{S}^{-1} \mathbf{1}}$ である。
+また\\
+$$\sigma_p^2 = \mathbf{w}_p' \mathbf{S} \mathbf{w}_p = (\mathbf{w}_g + \mathbf{w})' \mathbf{S}(\mathbf{w}_g + \mathbf{w})$$ 
+展開すると\\
+$$\sigma_p^2 = \mathbf{w}_g' \mathbf{S} \mathbf{w}_g + 2 \mathbf{w}_g' \mathbf{S} \mathbf{w} + \mathbf{w}' \mathbf{S} \mathbf{w}$$
+$\because\mathbf{w}_p ,\mathbf{w}_m$はEF上にある。\\
+$\therefore その凸結合 \mathbf{w}_pもEF上にあり、EFは凸なので、 \mathbf{w}_p = \vartheta \mathbf{w}_m + (1-\vartheta)\mathbf{w}_g \quad(0\leq\vartheta \leq1)もEF上にある$\\
+$\mathbf{w} = c\dfrac{\mathbf{S}^{-1}\xi}{\|\xi\|}$によって、 \\
+$$\mathbf{w}_p= \mathbf{w}_g + \mathbf{w} = \mathbf{w}_g + c\dfrac{\mathbf{S}^{-1}\xi}{\|\xi\|} $$
+$\mathbf{w}$を$\sigma_p ^2$に代入すると\\
+
+\begin{flalign*}
+  \sigma_p^2 &= \mathbf{w}_g' \mathbf{S} \mathbf{w}_g + 2 c \mathbf{w}_g' \mathbf{S} \Bigg( \frac{\mathbf{S}^{-1} \xi}{\|\xi\|} \Bigg) + c^2 \Bigg( \frac{\mathbf{S}^{-1} \xi}{\|\xi\|} \Bigg)' \mathbf{S} \Bigg( \frac{S^{-1} \xi}{\|\xi\|} \Bigg)\\
+             &=\mathbf{w}_g' \mathbf{S} \mathbf{w}_g + 2 c \mathbf{w}_g'\frac{ \xi}{\|\xi\|} + c^2\dfrac{\xi'\mathbf{S}^{-1}\mathbf{S}\mathbf{S}^{-1}\xi}{\|\xi\|^2}\\
+             &=\mathbf{w}_g' \mathbf{S} \mathbf{w}_g + 2 c \mathbf{w}_g'\frac{ \xi}{\|\xi\|} + c^2\dfrac{\xi'\mathbf{S}^{-1}\xi}{\|\xi\|^2}\\
+\end{flalign*}
+$\mathbf{w}_m = \dfrac{\mathbf{S}^{-1}\xi }{\|\xi\|} $によって、\\
+$$\mathbf{w}_p = \mathbf{w}_g + c\mathbf{w}_m $$\\
+となる。\\
+$\mathbf{w} は \mathbf{w}_g と \mathbf{w}_m の凸結合であり、\mathbf{w}_g と \mathbf{w}_m はどちらも EF 上に存在するため、\mathbf{w}_p も必然的に EF 上に存在する。これは、EF が凸集合であり、その上の任意の凸結合も EF に属するためである。$\\
+したがって、 $ \mathbf{w}_p = \mathbf{w}_g + \mathbf{w} $のポートフォリオがEF上にあることが示された。
+\end{proof}
+
+\begin{proof}[\textbf{proof\quad 2.1}]
+$\mu_X$ に関しては、\\
+$$
+  \mu_X = \mathbb{E}[X]=\mathbb{E}\Bigg[\dfrac{1}{n}\sum_{i=1}^n X_i\Bigg]=\dfrac{1}{n}\sum_{i=1}^n \mathbb{E}[X_i]=\mu
+$$
+したがって、\\
+$ X $の平均 $ \mu_X $ は $ \mu $ である。\\
+次に、$ \sigma_X $ について考えると、\\
+\begin{equation*}
+  Var(X) = Var\Bigg[\dfrac{1}{n}\sum_{i=1}^n X_i\Bigg]=\dfrac{1}{n^2}\sum_{i=1}^n Var[X_i]+\dfrac{2}{n^2}\sum_{1\leq i<j\leq n} Cov[X_i,X_j]
+\end{equation*}
+$ \because Var(X_i) = \sigma^2$ for $\forall i$, $Cov(X_i,X_j) = \rho \sigma^2\quad (i\neq j)$\\
+$$
+  \therefore Var(X) = \dfrac{1}{n^2}\sigma^2 + n(n-1) \rho \sigma^2  =\dfrac{\sigma^2}{n^2} \sigma^2 (1+(n+1)\rho)=\dfrac{\sigma^2}{n}(1+(n-1)\rho)
+$$
+よって、\\
+$$\sigma_X = \sqrt{\dfrac{\sigma^2}{n} (1+(n-1)\rho)} = \sigma \sqrt{\dfrac{1+(n-1)\rho}{n}}$$
+したがって、\\
+$ X $の標準偏差 $ \sigma_X $ は $ \sigma \sqrt{\dfrac{1+(n-1)\rho}{n}} $ である。
+\end{proof}
+
+\begin{proof}[\textbf{proof\quad 2.2}]
+$ Z = \max(X-K,0), Y = \max(0,\min(X-L,K-L))\quad ( 0<L<K<1) $とすると、\\
+$ X = \mu_X + \sigma_X \xi\quad(\xi \backsim N(0,1))$によって、\\
+$$ Y = \max(0,\min(\mu_X + \sigma_X \xi-L, K-L))$$
+$$ Z = \max(0,\mu_X + \sigma_X \xi-K) $$
+ここで、\\
+$$ a=\dfrac{L-\mu_X}{\sigma_X},\quad b= \dfrac{K-\mu_X}{\sigma_X} $$
+とおくと、\\
+$$ \mathbb{E}[Y] = \mathbb{E}[X-L|L<X\leq K] \times \mathbb{P}(L<X\leq K) $$
+$$ \mathbb{E}[Z]= \mathbb{E}[X-K|X>K] \times \mathbb{P}(X>K)$$
+今、正規分布の性質により、\\
+$$\mathbb{P}(X>K) = 1- N\Bigg(\dfrac{K-\mu_X}{\sigma_X}\Bigg) = 1 -N(b)$$
+$$ \mathbb{P}[L<X\leq K] = N(b)- N(a)$$
+
+
+$$ \mathbb{E}[Z] = \mathbb{E}[\max(X-K,0)] = \sigma_X \mathbb{E}[\max\Bigg(\dfrac{X-\mu_X}{\sigma_X}-\dfrac{K-\mu_X}{\sigma_X},0 \Bigg)]$$
+$ d_1 = \dfrac{K-\mu_X}{\sigma_X} $とおくと、\\
+$$ \mathbb{E}[Z] = \sigma_X (\phi (d_1)-d_1\Phi (d_1))$$
+となる。\\
+以上より、\\
+$$ \mathbb{E}[Z] = \sigma \sqrt{n(1+(n-1)\rho)}(\phi(d_1)-d1\Phi(d_1)) $$
+$$ \mathbb{E}[Y] = \sigma \sqrt{n(1+(n-1)\rho)}(\phi(d_2) - d_2\Phi(d_2) - (\phi(d_1)-d_1\Phi(d_1))) $$
+条件期待値の性質により、\\
+\[  
+\mathbb{E}[X - L \mid L < X \leq K] = \mu_X - L + \sigma_X\mathbb{E}[\xi \mid a < \xi < b]  
+\]  
+\[  
+\mathbb{E}[X - K \mid X > K] = \mu_X - K + \sigma_X\mathbb{E}[\xi \mid \xi > b]  
+\]  
+よって、\\
+\[  
+\mathbb{E}[\xi \mid \xi > b] = \frac{\phi(b)}{1 - N(b)}  
+\]  
+\[  
+\mathbb{E}[\xi \mid a < \xi < b] = \frac{\phi(b) - \phi(a)}{N(b) - N(a)}  
+\]  
+よって、\\
+\[  
+\mathbb{E}[Y] = (\mu_X - L) + \sigma_X \frac{\phi(b) - \phi(a)}{N(b) - N(a)} \times (N(b) - N(a)) = (\mu_X - L) + \sigma_X(\phi(b) - \phi(a))  
+\]  
+\[  
+\mathbb{E}[Z] = (\mu_X - K) + \sigma_X \frac{\phi(b)}{1 - N(b)} \times (1 - N(b)) = (\mu_X - K) + \sigma_X\phi(b)  
+\]  
+
+したがって、\\
+\[  
+\mathbb{E}[Y] = (\mu - L) + \sigma\sqrt{\frac{1 + (n-1)\rho}{n}}(\phi(b) - \phi(a))  
+\]  
+\[  
+\mathbb{E}[Z] = (\mu - K) + \sigma\sqrt{\frac{1 + (n-1)\rho}{n}}\phi(b)  
+\]  
+
+\end{proof}
+
+\begin{proof}[\textbf{proof\quad 2.3}]
+$ \rho = 0 $のとき、\\
+$$ sigma_X + \dfrac{\sigma}{\sqrt{n}} $$
+$ n\rightarrow\infty ,\quad \sigma_X\rightarrow 0$のとき、 $ X $の分布は $ \mu $  に集中するので、\\
+\[  
+\mathbb{E}[Y] = (\mu - L) + \sigma\sqrt{\frac{1 + (n - 1) \times 0}{n}}(\phi(b) - \phi(a)) = (\mu - L) + \frac{\sigma}{\sqrt{n}}(\phi(b) - \phi(a))  
+\] 
+\[  
+\mathbb{E}[Z] = (\mu - K) + \frac{\sigma}{\sqrt{n}}\phi(b)  
+\]  
+$n \to \infty$ のとき、$\frac{\sigma}{\sqrt{n}} \to 0$ となるため：  
+
+\[  
+\mathbb{E}[Y] \to \mu - L \quad \text{および} \quad \mathbb{E}[Z] \to \mu - K  
+\]  
+
+しかし、$\sigma_X \to 0$ により、$X$ はほぼ確実に $\mu$ に収束します。したがって：  
+
+\begin{itemize}  
+\item $\mu < L$ の場合、$\mathbb{E}[Y]$ と $\mathbb{E}[Z]$ はともに0に収束します。  
+\item $L < \mu < K$ の場合、$\mathbb{E}[Y]$ は $\mu - L$ に収束し、$\mathbb{E}[Z]$ は0に収束します。  
+\item $\mu > K$ の場合、$\mathbb{E}[Y]$ は $K - L$ に収束し、$\mathbb{E}[Z]$ は $\mu - K$ に収束します。  
+\end{itemize}  
+
+$\rho = 1$ のとき、\\
+共分散行列はすべての $X_i$ が完全相関していることを示します。したがって、すべての $X_i$ は等しく、投資ポートフォリオの損失 $X$ は：\\  
+
+\[  
+X = \frac{1}{n}\sum_{i=1}^n X_i = X_1  
+\]  
+
+したがって、$X$ は $N(\mu, \sigma^2)$ 分布に従います。  
+
+そのため、$n \to \infty$ のとき、$\mathbb{E}[Y]$ と $\mathbb{E}[Z]$ は一定のままです。なぜなら、$X$ の分布は $n$ の変化に依存しないためです。  
+
+具体的には：  
+
+\[  
+\mathbb{E}[Y] = (\mu - L) + \sigma(\phi(b) - \phi(a))  
+\]  
+\[  
+\mathbb{E}[Z] = (\mu - K) + \sigma\phi(b)  
+\]  
+
+これらの期待値は $n$ と無関係であり、したがって $n \to \infty$ のときも一定のままです。
+
+\end{proof}
+
+
+\begin{proof}[\textbf{proof\quad 3.1}]
+  機械学習の応用より、特に有望と考えられるアイディアとして、リアルタイムデータに基づいて保険料のダイナミックプライシングだと思います。\\
+  なぜかというと、従来の保険料設定は、大まかな統計データに基づく静的なものでしたが、機械学習技術を活用することで、各契約者のリスク要因をリアルタイムで分析し、もっときめ細かな保険料設定が可能となる。\\
+  詳しくいうと、技術面での革新性について説明します。機械学習技術を活用することで、ウェアラブルデバイスやIoTセンサーから得られる日々の行動データをリアルタイムで分析できるようになる。例えば、自動車保険であれば運転習慣のデータ、生命保険であれば日常的な運動量や生活習慣のデータなどを継続的に収集・分析することが可能である。これにより、従来の統計的手法では見落とされていた細かなリスク要因まで考えた、より細かいな保険料の算出が実現できる。
+
+  次に、保険会社にとっては、リスクに応じた適正な保険料設定により収益の安定化が図れる。また、高リスク契約の早期発見や優良顧客の維持にも効果がある。一方、契約者側にとっては、自身の行動や状況に応じた公平な保険料が設定されることになる。例えば、安全運転を心がける運転者や健康的な生活を送る人には、それに応じた保険料の割引が適用されるといった形で、良好な行動へのインセンティブとして機能する。
+
+  他には、クラウドコンピューティングの進化により、大量のデータ処理が可能になり、APIを活用したシステム連携も容易になっている。また、セキュリティ技術の向上により、個人データの安全な取り扱いも実現可能である。さらに、デジタル化への顧客の理解も深まっており、市場環境も整いつつある
+\end{proof}
+
+\begin{proof}[\textbf{proof\quad 3.2}]
+第一の問題点は、生命表は過去の死亡率データに基づいて作成され、定期的に更新されるが、作成時点と実際の使用時点との間にどうしても時間的なギャップが生じる。
+例えば、医療技術の急速な進歩による平均寿命の延伸や、新たな健康リスク要因の出現といった変化を、タイムリーに反映することが困難である。
+このため、特に長期の年金債務評価などにおいて、現在価値の算出精度に影響を与える可能性がある。
+実務面では、保険料率の設定や準備金の積立額の算出において、予測と実態との間にずれが生じるリスクがある。
+
+
+第二の問題点は、生命表は一般的な人口統計に基づいて作成されるため、特定の保険契約者群が持つ固有の特性を十分に反映できないことがある。
+具体的には、職業による死亡リスクの違いや、地域特性による死亡率の差異、さらには契約者の生活習慣による影響などを適切に評価することが難しい状況である。
+この結果、特定の集団におけるリスクを過大または過小に評価してしまう可能性があり、保険料設定の公平性や収益予測の精度に影響を与えることになる。
+  
+\end{proof}
+
+
+\end{document}

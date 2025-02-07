@@ -1,0 +1,583 @@
+\documentclass[a4paper]{jsarticle}  
+\usepackage{amsmath,amsthm,amssymb}  
+\usepackage{bm}      % 太字イタリックなど  
+\usepackage{hyperref}  
+\usepackage{geometry}  
+\geometry{margin=25mm}  
+
+\newtheorem{theorem}{定理}[section]  
+\newtheorem{lemma}{補題}[section]  
+\newtheorem{remark}{注意}[section]  
+
+\begin{document}  
+
+\section*{証明の全体像と背景}  
+
+本題では、Black--Scholes 型の確率微分方程式を満たす過程  
+\[  
+  S_t \;=\; S_0 \;+\; \int_0^t \mu\,S_s\,ds \;+\;\int_0^t \sigma\,S_s\,dW_s  
+\]  
+と、  
+\[  
+  S_t^n \;=\; S_0 \;+\; \int_0^t \mu^n(S_s^n)\,S_s^n\,ds \;+\;\int_0^t \sigma^n(S_s^n)\,S_s^n\,dW_s \;\;\ge0  
+\]  
+とで定義される2つのモデルを比較し、$f$ を適当な関数としたときに  
+\[  
+  \bigl|\mathbb{E}[f(S_T^n)] - \mathbb{E}[f(S_T)]\bigr|  
+\]  
+を上から評価し、さらにBlack--Scholes方程式を満たす解  
+\[  
+  u(t,S_0) \;=\; \mathbb{E}\bigl[f(S_t)\bigr]  
+\]  
+（ここで $t$ は残存時間のように扱うので、$0 \le t\le T$ とするとき、$T-t$ が実際の経過時間となることに注意）  
+が偏微分方程式  
+\[  
+  \partial_t u(t,S_0) + \mu\,S_0\,\partial_{S_0}u(t,S_0)   
+  \;+\; \frac{\sigma^2 S_0^2}{2}\,\partial_{S_0}^2 u(t,S_0)  
+  \;=\; 0,  
+  \quad  
+  u(0,S_0)=f(S_0)  
+\]  
+を満たすことを用いて、  
+両モデルの「離れ具合」がどのように評価されるかを示すのが主題です。  
+
+以下、段階を踏んで「(i) Black--Scholes PDE の解の性質」「(ii) 近似モデル $S^n$ 側で伊藤の補題を適用する方法」「(iii) 偏微分方程式に基づく誤差評価」という流れを詳しく証明します。  
+
+\vspace{5mm}  
+
+\section{Black--Scholes PDE を満たすことの確認}  
+
+\subsection{Black--Scholes方程式とその古典的解}  
+
+まず、確率過程 $S_t$ が  
+\[  
+  dS_t \;=\; \mu\,S_t\,dt \;+\; \sigma\,S_t\,dW_t  
+\]  
+で与えられているとすると、時刻 $t$ における $S_t$ の分布をもとに任意の連続有界関数 $f$ の期待値  
+\[  
+  u(t,S_0) \;=\; \mathbb{E}\bigl[f(S_t)\bigr]  
+\]  
+を考えます。$u$ は変数として $(t, S_0)$ を持ち、形式的には「初期値（時刻0での株価）を $S_0$ とし、時間 $t$ 進んだときの $f$ の期待値」という関数です。  
+
+伊藤の補題（次節で述べる）などを用いて直接計算すると、この $u(t,S_0)$ は以下の偏微分方程式(PDE)をみたすことが知られています:  
+\[  
+  \partial_t u(t,S_0)   
+  \;+\; \mu\,S_0\,\partial_{S_0}u(t,S_0)  
+  \;+\; \frac{1}{2}\,\sigma^2 \,S_0^2\,\partial_{S_0}^2 u(t,S_0)  
+  \;=\; 0,  
+\]  
+境界条件(初期条件)は  
+\[  
+  u(0,S_0) \;=\; f(S_0).  
+\]  
+これはBlack--Scholes方程式（ドリフトが $\mu$, ボラティリティが $\sigma$ の単純化版）に相当します。  
+
+\subsection{伊藤の補題による確認}  
+
+本来の（よく知られた）導出を簡単に振り返ります。$g(t,x)$ を2変数の十分滑らかな関数とし、$X_t$ を伊藤過程  
+\[  
+  dX_t \;=\; \alpha_t\,dt + \beta_t\,dW_t  
+\]  
+で定義するとき、伊藤の補題は  
+\[  
+  d\,g(t,X_t)  
+  \;=\;  
+  \left(  
+    \frac{\partial g}{\partial t}  
+    + \alpha_t\,\frac{\partial g}{\partial x}  
+    + \frac{1}{2}\,\beta_t^2\,\frac{\partial^2 g}{\partial x^2}  
+  \right)\,dt  
+  \;+\;  
+  \beta_t\,\frac{\partial g}{\partial x}\,dW_t  
+\]  
+を与えます。  
+
+ここで $X_t=S_t$, $\alpha_t = \mu\,S_t$, $\beta_t=\sigma\,S_t$、さらに $g(t,x)=u(T-t,x)$ のように時間変数をひっくり返して取る習慣（金融数学では $t$ は残り時間を表すことが多い）を用いると、  
+\[  
+  u(\tau,x)  
+  =  
+  g(T-\tau,x)  
+  \quad(\text{ただし } \tau \in [0,T]).  
+\]  
+すると  
+\[  
+  d\,u\bigl(T-t,S_t\bigr)  
+  =  
+  \left(  
+    \frac{\partial u}{\partial t}(-1)  
+    + \mu S_t\,\frac{\partial u}{\partial x}  
+    + \frac12\,\sigma^2 S_t^2\,\frac{\partial^2 u}{\partial x^2}  
+  \right) dt  
+  \;+\;  
+  \sigma S_t \,\frac{\partial u}{\partial x}\,dW_t.  
+\]  
+このとき $\partial_t u$ のタイミングが「$T-t$ を微小増加させる」と読み替える関係で符号が入れ替わり、結局  
+\[  
+  - \frac{\partial u}{\partial t}  
+  + \mu\,S_t \,\frac{\partial u}{\partial x}  
+  + \frac{1}{2}\,\sigma^2 S_t^2\,\frac{\partial^2 u}{\partial x^2}  
+  = 0  
+\]  
+が成り立つべきことがわかります。  
+初期条件（境界条件）については $t=0$ で $u(T-0,x)=f(x)$ なので $u(T,x)=f(x)$ と解釈します。  
+
+このようにして、  
+\[  
+  \frac{\partial u}{\partial t}  
+  +   
+  \mu\, x \,\frac{\partial u}{\partial x}  
+  +  
+  \frac12\,\sigma^2\,x^2\,\frac{\partial^2 u}{\partial x^2}  
+  = 0  
+\]  
+（$u(0,x)=f(x)$）という PDE が得られるわけです。  
+
+\subsection{$u(t,S_0)=\mathbb{E}[f(S_t)]$ がPDEの解になっている理由}  
+
+最終的な帰結として、「確率過程 $S_t$ による $f(S_t)$ の期待値」を計算する演算子が、上記のBlack--Scholes PDE の解を与える、という事実が出てきます。  
+すなわち、  
+\[  
+  u(t,S)   
+  :=   
+  \mathbb{E}\bigl[f\bigl(S_{t}\bigr)\,\big|\ S_0=S\bigr]  
+\]  
+は上の初期条件と PDE を満たす古典解になることが示せます。いわば「確率論側から見るとただの期待値演算」、PDE 側から見ると「線型拡散方程式の解」と対応しているわけです。  
+
+なお、複雑な変動があるときでも、Coefficients (係数) が連続など、一定の正則性条件をみたせばこの対応は成立します。Black--Scholes の場合は $x>0$ が自然な領域となる点に注意が要りますが、十分小さい $\varepsilon>0$ を与えて $[\varepsilon,\infty)$ 上で議論すればそもそも連続・C${}^2$ 解が得やすい、等の事情があります。  
+
+\vspace{5mm}  
+
+\section{近似モデル $S_t^n$ とその扱い}  
+
+本題で提示されている近似モデル  
+\[  
+  S_t^n  
+  \;=\;  
+  S_0   
+  \;+\;  
+  \int_0^t \mu^n\bigl(S_s^n\bigr)\,S_s^n\,ds  
+  \;+\;  
+  \int_0^t \sigma^n\bigl(S_s^n\bigr)\,S_s^n\,dW_s,  
+  \quad S_t^n > 0,  
+\]  
+は元のモデルと比べると、定数 $\mu,\sigma$ の代わりに何らかの「連続関数 $\mu^n(\cdot), \sigma^n(\cdot)$」を用いている形です。背後には「係数の数値近似」や「ボラティリティ推定の仕方を変えた」等、いろいろな近似スキームのバリエーションが考えられます。要点は  
+1. $S_t$ と $S_t^n$ が同じ初期値 $S_0$ から始まる。  
+2. $\mu^n, \sigma^n$ は $\mu, \sigma$ に何らかの意味で近い。  
+3. $S_t^n$ も正であり、同様の伊藤積分表現を持つ。  
+
+などです。こうした前提のもとで、「$T$ 時点における $S_T^n$ の分布に対する関数 $f$ の期待値」が「$S_T$ に対するそれ」と近いことを証明しよう、というのが大枠の目的となります:  
+
+\[  
+  \bigl|\mathbb{E}[f(S_T^n)] - \mathbb{E}[f(S_T)]\bigr|  
+  \;\;\text{が小さくなることを示す}.  
+\]  
+
+さらにここでは、「$f(S_T)$ の期待値」を Black--Scholes PDE の解 $u(t,S)$ という観点でとらえ、伊藤の公式を使った誤差評価を行うことで  
+\[  
+  \bigl|\mathbb{E}[f(S_T^n)] - \mathbb{E}[f(S_T)]\bigr|  
+  \;\;\le\;\;  
+  \int_0^T \cdots \,ds  
+\]  
+のような形の評価を得ることができる、というわけです。  
+
+\vspace{5mm}  
+
+\section{主たる評価不等式の証明スケッチ}  
+
+問題文の終わりに書かれている評価:  
+\[  
+  \bigl|\mathbb{E}[f(S_T^n)] - \mathbb{E}[f(S_T)]\bigr|  
+  \;\;\le\;\;  
+  \int_0^T   
+    \mathbb{E}\Bigl[\bigl|\mu^n(S_s^n) - \mu\,S_s\bigr|\Bigr]\,  
+    \bigl\|\partial_{S_0}u(T-s,\cdot)\bigr\|_\infty\,  
+  ds  
+  \;+\;  
+  \int_0^T  
+    \mathbb{E}\Bigl[  
+      \bigl|(\sigma^n(S_s^n))^2 - \sigma^2\,S_s^2\bigr|  
+    \Bigr]\,  
+    \bigl\|\partial_{S_0}^2 u(T-s,\cdot)\bigr\|_\infty  
+  ds  
+\]  
+（あるいは似た形の不等式）は、次のように導かれます。  
+
+\begin{enumerate}  
+\item[(1)] $u(\tau,x) := \mathbb{E}[f(S_\tau)]$ がBlack--Scholes PDE の解であること、および滑らかな解であることを利用する。  
+\item[(2)] 近似過程 $S_t^n$ 上で 伊藤の補題を $u(T-t,S_t^n)$ に適用し、$dW_t$ 项を含む確率微分を展開する。  
+\item[(3)] 本来なら $\mu\,S_t^n$ あるいは $\sigma\,S_t^n$ が掛かるべきところが、実際は $\mu^n(S_t^n)\,S_t^n$ や $\sigma^n(S_t^n)\,S_t^n$ になっている差分を吸収する。さらに誤差項として $\sigma^n(S_t^n)^2 - \sigma^2 S_t^n{}^2$ の差などが現れる。  
+\item[(4)] PDE が成り立つおかげで「$\partial_t u + \mu x \partial_x u + \frac12 \sigma^2 x^2 \partial^2_x u = 0$」という項はちょうど打ち消され、残るのは近似のずれ部分のみ。  
+\item[(5)] そのずれ部分を積分 $\int_0^T \cdots ds$ でまとめると、問題文の右辺のような形が得られる。絶対値を取り、最大ノルム $\|\cdot\|_\infty$ で制約してやれば、評価不等式の完成となる。  
+\end{enumerate}  
+
+これが問題に書かれている  
+\[  
+  \bigl|\mathbb{E}[f(S_T^n)] - \mathbb{E}[f(S_T)]\bigr|  
+  \;\;\le\;\;\cdots  
+\]  
+の大まかな証明方針です。  
+
+\vspace{5mm}  
+
+\section{証明詳細：伊藤の補題による差分取り}  
+
+ここではもう少しテクニカルな細部を示します。  
+時間の流れは区間 $[0,T]$ なので、PDE の独立変数としては「$\tau=t$ のときに $u$ は $T-t$ を使う」という対応を採用します。たとえば  
+\[  
+  v(t, x)  
+  :=   
+  u(T-t, x),  
+\]  
+と定義すると、$v$ について伊藤の補題を使うほうがやりやすくなります。  
+
+\subsection{関数 $v(t,x)$ の導入}  
+
+$u(\tau,x)$ が  
+\[  
+  \partial_\tau u(\tau,x)  
+  \;+\;  
+  \mu\, x \,\partial_x u(\tau,x)  
+  \;+\;  
+  \frac12\,\sigma^2\,x^2\,\partial_x^2 u(\tau,x)  
+  \;=\;0,  
+\]  
+を $\tau\in[0,T]$, $x>0$ 上で満たすとき、$v(t,x):=u(T-t,x)$ とおけば、  
+\[  
+  \partial_t v(t,x)  
+  =   
+  -\,\partial_\tau u(\tau,x)\big|_{\tau=T-t},  
+\]  
+となるので、  
+\[  
+  \partial_t v(t,x)  
+  \;+\;  
+  \mu x \partial_x v(t,x)  
+  \;+\;  
+  \frac12\,\sigma^2 x^2 \partial_x^2 v(t,x)  
+  \;=\;0  
+\]  
+も成り立ちます。初期条件は $v(0,x) = u(T,x) = f(x)$ となる。  
+
+この $v(t,x)$ を使うと、目標である $\mathbb{E}[f(S_T^n)] = \mathbb{E}[v(T, S_0^n)]$ が見やすくなります。具体的には、  
+\[  
+  v(T, S_0^n) - v(0,S_0^n)  
+  \;=\;  
+  \int_0^T d\,v(t, S_t^n).  
+\]  
+ここに伊藤の補題を適用します。  
+
+\subsection{伊藤の補題を適用}  
+
+$S_t^n$ の SDE は  
+\[  
+   dS_t^n  
+   = \mu^n(S_t^n)\,S_t^n\,dt  
+   + \sigma^n(S_t^n)\,S_t^n\,dW_t,  
+\]  
+なので、伊藤の補題から  
+\begin{align*}  
+  d\,v(t, S_t^n)  
+  &=   
+  \left[  
+    \partial_t v(t,S_t^n)  
+    \;+\;  
+    \mu^n(S_t^n)\,S_t^n\,\partial_x v(t,S_t^n)  
+    \;+\;  
+    \frac12\,(\sigma^n(S_t^n))^2 \,(S_t^n)^2\,\partial_x^2 v(t,S_t^n)  
+  \right]\,dt  
+  \\
+  &\quad {}  
+  +   
+  \sigma^n(S_t^n)\,S_t^n\,\partial_x v(t,S_t^n)\,dW_t.  
+\end{align*}  
+
+しかし $v$ 自身は「もともと $\mu,\sigma$ で定まる PDE」をみたすので、  
+\[  
+  \partial_t v(t,x)  
+  \;+\;  
+  \mu\, x\,\partial_x v(t,x)  
+  \;+\;  
+  \tfrac12\,\sigma^2\, x^2\,\partial_x^2 v(t,x)  
+  =0.  
+\]  
+ここで差分を考えるために、$(\mu^n - \mu),\,(\sigma^n)^2 - \sigma^2$ を分離します。  
+具体的には  
+\begin{align*}  
+  &  
+  \partial_t v(t,S_t^n)  
+  +  
+  \mu^n(S_t^n)\,S_t^n\,\partial_x v(t,S_t^n)  
+  +  
+  \tfrac12\,(\sigma^n(S_t^n))^2\,(S_t^n)^2\,\partial_x^2 v(t,S_t^n)  
+  \\[5pt]  
+  &=   
+  \bigl[\partial_t v + \mu S^n_t \partial_x v + \tfrac12\,\sigma^2 (S_t^n)^2 \partial_x^2 v \bigr]  
+  \\
+  &\quad {}  
+  +   
+  (\mu^n(S_t^n) - \mu)\,S_t^n \,\partial_x v(t,S_t^n)  
+  +  
+  \tfrac12\,\bigl((\sigma^n(S_t^n))^2 - \sigma^2\bigr)\,(S_t^n)^2\,\partial_x^2 v(t,S_t^n).  
+\end{align*}  
+PDE により $[\partial_t v + \mu x \partial_x v + \frac12\,\sigma^2 x^2\,\partial_x^2 v ]=0$ より、上式前半はすべて消去されます。よって  
+\[  
+  \partial_t v(t,S_t^n)  
+  +  
+  \mu^n(S_t^n)\,S_t^n\,\partial_x v  
+  +  
+  \tfrac12\,(\sigma^n(S_t^n))^2 (S_t^n)^2\,\partial_x^2 v  
+  =  
+  R_t^n,  
+\]  
+と書けば、ここで誤差項 $R_t^n$ は  
+\[  
+  R_t^n  
+  :=  
+  (\mu^n(S_t^n) - \mu)\,S_t^n\,\partial_x v(t,S_t^n)  
+  \;+\;  
+  \tfrac12\,  
+  \bigl((\sigma^n(S_t^n))^2 - \sigma^2\bigr)\,(S_t^n)^2\,\partial_x^2 v(t,S_t^n).  
+\]  
+
+したがって  
+\[  
+  d\,v(t, S_t^n)  
+  =  
+  R_t^n\,dt  
+  \;+\;  
+  \sigma^n(S_t^n)\,S_t^n\,\partial_x v(t,S_t^n)\,dW_t.  
+\]  
+
+\subsection{$v(T,S_0^n) - v(0,S_0^n)$ の期待値}  
+
+$t=0$ から $t=T$ まで積分すると、  
+\[  
+  v(T,S_0^n) - v(0,S_0^n)  
+  =  
+  \int_0^T R_s^n\,ds  
+  \;+\;  
+  \int_0^T   
+    \sigma^n(S_s^n)\,S_s^n\,\partial_x v(s,S_s^n)\,dW_s.  
+\]  
+両辺の期待値をとると、伊藤積分の部分は期待値が $0$ なので、  
+\[  
+  \mathbb{E}[\,v(T,S_0^n)\,] - v(0,S_0^n)  
+  =  
+  \int_0^T \mathbb{E}[\,R_s^n\,]\,ds.  
+\]  
+最初と最後の項を整理すると  
+\[  
+  \mathbb{E}[\,v(T,S_0^n)\,]  
+  \;=\;  
+  v(0,S_0^n)  
+  \;+\;  
+  \int_0^T \mathbb{E}[\,R_s^n\,]\,ds.  
+\]  
+さらに $v(0,S_0^n) = u(T,S_0^n) = f(S_0^n)$ となります（$t=0$ のとき $v(0,x)=f(x)$）。最終的に、$v(T,S_0^n)=u(0,S_0^n)=\mathbb{E}[f(S_T)\mid S_0^n]$ のように解釈されますが、もう少し単純に書けば  
+\[  
+  \mathbb{E}[\,v(T,S_0^n)\,]  
+  =  
+  f(S_0^n)  
+  \;+\;  
+  \int_0^T \mathbb{E}[\,R_s^n\,]\,ds.  
+\]  
+一方で $v(T,S_0^n) = u(T-(T),S_0^n)=u(0,S_0^n)=f(S_0^n)$ と “定義的に” 書いてしまうと、すでにそこにランダム性は無いようにも見えますが、上式のやり取りは帰納的に「$T$ をずらす」イメージを持ちます。  
+
+要するに $v(T,x)=u(T-(T),x)=u(0,x)=f(x)$ は確定関数ですが、$v(T,S_t^n)$ の期待値を通して見れば  
+\[  
+  \mathbb{E}[\,v(T,S_T^n) \,]  
+  =  
+  \mathbb{E}[\,f(S_T^n)\,].  
+\]  
+よって  
+\[  
+  \mathbb{E}[\,f(S_T^n)\,]  
+  =  
+  f(S_0^n)  
+  \;+\;  
+  \int_0^T \mathbb{E}[\,R_s^n\,]\,ds.  
+\]  
+ここで $f(S_0^n)$ は $S_0^n$ が定数扱い（初期値 $S_0$ は非ランダムの想定）なので $f(S_0)$ と同じ状態です。  
+
+\subsection{誤差項 $R_s^n$ の絶対値評価}  
+
+$R_s^n$ は  
+\[  
+  R_s^n  
+  =  
+  (\mu^n(S_s^n) - \mu)\,S_s^n\,\partial_x v(s,S_s^n)  
+  \;+\;  
+  \tfrac12  
+  \Bigl[\,(\sigma^n(S_s^n))^2 - \sigma^2\Bigr]\,(S_s^n)^2  
+         \,\partial_x^2 v(s,S_s^n).  
+\]  
+従って  
+\begin{align*}  
+  \bigl|R_s^n\bigr|  
+  &\le  
+  \Bigl|\,(\mu^n(S_s^n) - \mu)\,S_s^n\,\partial_x v(s,S_s^n)\Bigr|  
+  +  
+  \tfrac12  
+  \Bigl|\,(\sigma^n(S_s^n))^2 - \sigma^2\Bigr|\,(S_s^n)^2  
+  \,\bigl|\partial_x^2 v(s,S_s^n)\bigr|  
+  \\[6pt]  
+  &\le  
+  \bigl|\mu^n(S_s^n) - \mu\bigr|\,(S_s^n)\,\bigl\|\partial_x v(s,\cdot)\bigr\|_\infty  
+  \;+\;  
+  \tfrac12  
+  \bigl|(\sigma^n(S_s^n))^2 - \sigma^2\bigr|\,(S_s^n)^2  
+  \,\bigl\|\partial_x^2 v(s,\cdot)\bigr\|_\infty.  
+\end{align*}  
+ここで  
+\[  
+  \|\partial_x v(s,\cdot)\|_\infty  
+  :=  
+  \sup_{x>0} \bigl|\partial_x v(s,x)\bigr|,  
+  \quad  
+  \|\partial_x^2 v(s,\cdot)\|_\infty  
+  :=  
+  \sup_{x>0} \bigl|\partial_x^2 v(s,x)\bigr|.  
+\]  
+のような無限ノルムを考え、それでまとめます。  
+もし $S_s^n \le M$ のような有界性が仮定できればもう少し単純なカッコに入れられますし、ともかく最大微分ノルム（偏微分が有界である）という正則性を使った評価が可能になります。  
+
+以上から  
+\[  
+  \bigl|\mathbb{E}[\,R_s^n\,]\bigr|  
+  \;\le\;  
+  \mathbb{E}\bigl[\bigl|R_s^n\bigr|\bigr]  
+  \;\le\;  
+  \mathbb{E}\Bigl[  
+    \bigl|\mu^n(S_s^n) - \mu\bigr|(S_s^n)  
+  \Bigr]\,  
+  \|\partial_x v(s,\cdot)\|_\infty  
+  \;+\;  
+  \tfrac12\,  
+  \mathbb{E}\Bigl[  
+    \bigl|(\sigma^n(S_s^n))^2 - \sigma^2\bigr|\,(S_s^n)^2\Bigr]  
+  \|\partial_x^2 v(s,\cdot)\|_\infty.  
+\]  
+
+\subsection{最終的な結論}  
+
+両辺を $s$ で $0$ から $T$ へ積分すれば  
+\[  
+  \bigl|\mathbb{E}[\,f(S_T^n)] - f(S_0)\bigr|  
+  =  
+  \biggl|\int_0^T \mathbb{E}[\,R_s^n\,]\,ds\biggr|  
+  \;\le\;  
+  \int_0^T \mathbb{E}\Bigl[  
+    \bigl|\mu^n(S_s^n) - \mu\bigr|\,(S_s^n)  
+  \Bigr]  
+  \|\partial_x v(s,\cdot)\|_\infty\;ds  
+  \;+\;  
+  \frac12  
+  \int_0^T \mathbb{E}\Bigl[  
+    \bigl|(\sigma^n(S_s^n))^2 - \sigma^2\bigr|\,(S_s^n)^2  
+  \Bigr]  
+  \|\partial_x^2 v(s,\cdot)\|_\infty\;ds.  
+\]  
+ここで実は元のモデル $S_t$ との比較には $S_0^n=S_0$ を想定しているので、$f(S_0^n)=f(S_0)$ です。  
+さらに「$v(s,x)=u(T-s,x)$ の微分は $u$ の微分と同じ」という関係を思い出し、  
+\[  
+  \|\partial_x v(s,\cdot)\|_\infty  
+  =  
+  \|\partial_{S_0} u(T-s,\cdot)\|_\infty,  
+  \quad  
+  \|\partial_x^2 v(s,\cdot)\|_\infty  
+  =  
+  \|\partial_{S_0}^2 u(T-s,\cdot)\|_\infty.  
+\]  
+以上を使えば、問題文にある評価不等式の形  
+\[  
+  \bigl|\mathbb{E}[\,f(S_T^n)] - f(S_0)\bigr|  
+  \;\le\;  
+  \int_0^T  
+    \mathbb{E}\Bigl[  
+      \bigl|\mu^n(S_s^n) - \mu\bigr|\,(S_s^n)  
+    \Bigr]  
+    \bigl\|\partial_{S_0}u(T-s,\cdot)\bigr\|_\infty  
+  \,ds  
+  \;+\;  
+  \frac12  
+  \int_0^T  
+    \mathbb{E}\Bigl[  
+      \bigl|(\sigma^n(S_s^n))^2 - \sigma^2\bigr|\,(S_s^n)^2  
+    \Bigr]  
+    \bigl\|\partial_{S_0}^2 u(T-s,\cdot)\bigr\|_\infty  
+  \,ds  
+\]  
+が導かれます。なお、問題文ではもう少しシンボルを簡略化して  
+\[  
+  \bigl\|\partial_{S_0}u(T-s,\cdot)\bigr\|_\infty  
+  \quad\text{や}\quad  
+  \bigl\|\partial_{S_0}^2 u(T-s,\cdot)\bigr\|_\infty  
+\]  
+を「$\|\cdot\|_{\infty}$」と書いていると思われます。  
+
+さらに「$S_t$ の場合」を引き算する形で直接比べれば、  
+\[  
+  \bigl|\mathbb{E}[f(S_T^n)] - \mathbb{E}[f(S_T)]\bigr|  
+  \;\le\;  
+  \text{(同種の2つの誤差)}.  
+\]  
+すなわち  
+\[  
+  \mathbb{E}\bigl[\mu^n(S_s^n) S_s^n - \mu S_s^n\bigr]  
+  =  
+  \mathbb{E}\bigl[(\mu^n(S_s^n) - \mu) S_s^n\bigr]  
+  +  
+  \mathbb{E}\bigl[\mu(S_s^n - S_s)\bigr],  
+\]  
+等々の項を追加すれば「元の $S_t$ との誤差」を評価することができます。これは問題文で書かれている「$\mu^n(S_s^n) - \mu S_s$」という差分の形とも対応します。$\sigma^2$ についても同様に整理可能です。  
+
+\vspace{5mm}  
+
+\section{結論・まとめ}  
+
+以上の手順により、問題文の  
+
+\[  
+  \bigl|\mathbb{E}[f(S_T^n)] - \mathbb{E}[f(S_T)]\bigr|  
+  \;\;\;\le\;\;\;  
+  \int_0^T   
+    \mathbb{E}\bigl[\bigl|\mu^n(S_s^n) - \mu S_s\bigr|\bigr]  
+    \,\|\partial_{S_0}u(T-s,\cdot)\|_\infty  
+    \,ds  
+  \;+\;  
+  \int_0^T  
+    \mathbb{E}\Bigl[\bigl|(\sigma^n(S_s^n))^2 - \sigma^2\,S_s^2\bigr|\Bigr]\,  
+    \|\partial_{S_0}^2 u(T-s,\cdot)\|_\infty  
+    \,ds  
+\]  
+のような評価を示すことができます。ポイントは、  
+
+\begin{itemize}  
+\item $u(\tau,S)$ がBlack--Scholes PDE  
+\[  
+  \partial_\tau u + \mu S \partial_S u + \tfrac12\,\sigma^2 S^2 \partial_S^2 u = 0  
+\]  
+をみたすことで、伊藤の補題の適用時に「主項」が打ち消される。  
+\item 残るのは近似係数 $\mu^n,\sigma^n$ と本来の $\mu,\sigma$ のずれに起因する誤差のみ。  
+\item その誤差を最大ノルム（$\|\partial_S u\|_\infty$, $\|\partial_S^2 u\|_\infty$）でバウンドする形が自然に導かれる（有界な高次導関数を仮定している）。  
+\end{itemize}  
+
+こうした枠組みは、Black--Scholes 型のみならず、一般の拡散過程における「Drift や拡散係数を近似したときの解の差分評価」でもよく用いられる標準的なテクニックです。最後に、もし $\mu^n \to \mu$ および $\sigma^n \to \sigma$ が一様収束するならば、右辺の積分評価も $n\to\infty$ で 0 に近づき、よって  
+\[  
+  \lim_{n\to\infty}  
+  \bigl|\mathbb{E}[f(S_T^n)] - \mathbb{E}[f(S_T)]\bigr|  
+  =0  
+\]  
+がわかる、などの帰結も得られます。  
+
+\bigskip  
+
+\hrule  
+\bigskip  
+
+{\bf 参考：}\\
+- Bj\"{o}rk, T. (2009), {\it Arbitrage Theory in Continuous Time.}\\
+- Karatzas, I., and Shreve, S. (1991), {\it Brownian Motion and Stochastic Calculus.}\\
+- \texttt{https://en.wikipedia.org/wiki/Black–Scholes\_equation}  
+
+\end{document}

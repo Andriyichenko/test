@@ -1,0 +1,118 @@
+\documentclass[a4paper]{jsarticle} %A4: 21.0 x 29.7cm
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\usepackage{otf}
+\usepackage{xspace}
+\usepackage{newpxtext}
+\renewcommand{\abstractname}{注意事項}
+% \renewcommand{\qed}{\unskip\nobreak\quad\qedsymbol}
+\newtagform{textbf}[\textbf]{[}{]}
+\usetagform{textbf}
+\newcommand*{\ie}{\textbf{\textit{i.e.}}\@\xspace}
+
+
+
+\title{\vspace{-4cm}確率論のレポート問題}
+\author{YI Ran-21122200512}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+\begin{abstract}
+  \textcolor{red}{A4で1枚にまとめること、提出は12月19日か1月16日のいずれかの授業中}  
+\end{abstract}
+\section*{問題}
+\subsection*{問1}
+$X,Y$がそれぞれポアソン分布 $P_o(\lambda),P_{o}(\mu)$ に従い、独立であるとする。ただし、
+ $\lambda ,\mu >0$ とする。なお、確率変数 $X$ がポアソン分布$P_{o}(\lambda)$ に従うとは、確率関数 $f(k)=P(X=k)$ が次で与えられる。
+\begin{equation*}
+  f(k)=P(X=k)=e^{-\lambda}\dfrac{\lambda^k}{k!}\qquad (k=0,1,2,\dots)
+\end{equation*}
+この時、以下を示せ
+\begin{enumerate}
+  \item 和$ S=X+Yはポアソン分布 P_0(\lambda+\mu) $に従う
+  \item 平均 $\mathbb{E}[X]=\lambda$
+  \item 分散$ \mathtt{var}[X]=\lambda$
+\end{enumerate}
+\vspace{-0.4cm}
+\section*{解答}
+\begin{proof}[\textbf{proof\quad 1}]
+  $X,Y$がそれぞれポアソン分布 $P_o(\lambda),P_{o}(\mu)$ によって、
+  $$
+    P(X=k)=e^{-\lambda}\dfrac{\lambda^k}{k!},\quad P(Y=k)=e^{-\mu}\dfrac{\mu^k}{k!}
+  $$
+  $XとYは独立なので,S=X+Yとn=0,1,2,\dots$により
+\begin{flalign*}
+    P(S=n)&=\sum_{k=0}^{n}P(X=k)P(Y=n-k)&\\
+          &=\sum_{k=0}^{n}(e^{-\lambda}\dfrac{\lambda^k}{k!})(e^{-\mu}\dfrac{\mu^{n-k}}{(n-k)})&\\
+          &=e^{-(\lambda+\mu)}\sum_{k=0}^{n}\dfrac{\lambda^k\mu^{n-k}}{k!(n-k)!}&\\
+          &=\dfrac{1}{n!}e^{-(\lambda+\mu)}\sum_{k=0}^{n}\dfrac{n!\lambda^k\mu^{n-k}}{k!(n-k)!}&\\
+          &=\dfrac{1}{n!}e^{-(\lambda+\mu)}\sum_{k=0}^{n}\tbinom{n}{k}\lambda^k\mu^{n-k}&\\
+\end{flalign*} 
+\vspace{-1.4cm}\\
+
+二項定理より、$\sum_{k=0}^{n}\binom{n}{k}\lambda^k\mu^{n-k}=(\lambda+\mu)^n$\\
+\quad したがって
+  $$
+    P(S=n)=e^{-(\lambda+\mu)}\dfrac{(\lambda+\mu)^n}{n!}\qquad (n=0,1,2,\dots)
+  $$
+\end{proof}
+\vspace*{-2.2cm}
+\begin{proof}[\textbf{proof\quad 2}]
+\quad\\
+$ \mathbb{E}[X]=\sum_{k=0}^{\infty}kP(X=k) $により、
+\begin{flalign*}
+  \mathbb{E}[X]=\sum_{k=0}^{\infty}kP(X=k)&=\sum_{k=0}^{\infty}ke^{-\lambda}\dfrac{\lambda^k}{k!}&\\
+               &=\sum_{k=1}^{\infty}ke^{-\lambda}\dfrac{\lambda^k}{k!}&\\
+               &=\lambda\sum_{k=1}^{\infty}e^{-\lambda}\dfrac{\lambda^{k-1}}{(k-1)!}&\\
+\end{flalign*}
+ここで、$l=kー1$とすると
+\begin{align*}
+\mathbb{E}[X]=\lambda\sum_{k=1}^{\infty}e^{-\lambda}\dfrac{\lambda^{k-1}}{(k-1)!}=\lambda\sum_{l=0}^{\infty}e^{-\lambda}\dfrac{\lambda^l}{l!}=\lambda\sum_{l=0}^{\infty}P(X=l)=\lambda\tag{2.1}\label{eq:2.1}
+\end{align*}
+となる.\\
+\ie\quad $ \mathbb{E}[X]=\lambda $
+\end{proof}
+
+
+\begin{proof}[\textbf{proof\quad 3}]
+
+\begin{flalign*}
+  \mathtt{var}[X]&=\mathbb{E}[(X-\mathbb{E}[X])^2]=\mathbb{E}[X^2-2X \mathbb{E}[X]+\mathbb{E}[X]^2]&\\
+                 &=\mathbb{E}[X^2]-2\mathbb{E}[X]^2+\mathbb{E}[X]^2=\mathbb{E}[X^2]-\mathbb{E}[X]^2&\\
+                 &=\mathbb{E}[X(X-1)]+\mathbb{E}[X]-\mathbb{E}[X]^2\tag{3.1}\label{eq3.1}&
+\end{flalign*}\\
+$\because \mathbb{E}[X(X-1)]=\sum_{k=0}^{\infty}k(k-1)e^{-\lambda}\dfrac{\lambda^k}{k!}$\\
+\vspace*{-0.1cm}
+\begin{flalign}
+  \therefore\mathbb{E}[X(X-1)]&=\sum_{k=2}^{\infty}k(k-1)e^{-\lambda}\dfrac{\lambda^2\lambda^{k-2}}{k(k-1)(k-2)!}\notag &\\
+                    &=\lambda^2\sum_{k=2}^{\infty}e^{-\lambda}\dfrac{\lambda^{k-2}}{(k-2)!}\notag &
+\end{flalign}
+ここで、$j=k-2$とすると
+\vspace*{-0.1cm}
+\begin{flalign*}
+  \mathbb{E}[X(X-1)]&=\lambda^2\sum_{j=0}^{\infty}e^{-\lambda}\dfrac{\lambda^j}{j!}=\lambda^2e^{-\lambda}\sum_{j=0}^{\infty}\dfrac{\lambda^j}{j!} となる &
+\end{flalign*}
+$\because\sum_{j=0}^{\infty}\dfrac{\lambda^j}{j!}=e^\lambda$\\
+\quad\\
+$\therefore \mathbb{E}[X(X-1)]=\lambda^2e^{-\lambda}e^{\lambda}=\lambda^2$\\
+\quad\\
+次に$\eqref{eq:2.1}式の\mathbb{E}[X]=\lambda と\mathbb{E}[X(X-1)]=\lambda^2$を\eqref{eq3.1}式に代入すると\\
+$$
+\mathtt{var}[X]=\mathbb{E}[X(X-1)]+\mathbb{E}[X]-\mathbb{E}[X]^2=\lambda^2+\lambda-\lambda^2=\lambda
+$$
+となる.\\
+\ie\quad $\mathtt{var}[X]=\lambda$ 
+
+\end{proof}
+
+
+
+\end{document}
+
+
+

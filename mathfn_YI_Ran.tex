@@ -1,0 +1,174 @@
+\documentclass[a4paper]{jsarticle}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\usepackage{otf}
+\usepackage{xspace}
+\usepackage{newpxtext}
+\usepackage{empheq,cases}
+% \renewcommand{\abstractname}{注意事項}
+% \renewcommand{\proofname}{\textbf{証明}}
+% \renewcommand{\qed}{\unskip\nobreak\quad\qedsymbol}
+\newtagform{textbf}[\textbf]{[}{]}
+\usetagform{textbf}
+\newcommand*{\ie}{\textbf{\textit{i.e.}}\@\xspace}
+% \usepackage[a4paper, top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\title{\vspace{-4cm}アクチュアリーのレポート問題}
+\author{YI Ran-21122200512}
+\date{\today}
+\begin{document}
+\maketitle
+%%%概要を出力したい人はこのように記述
+\vspace{-0.4cm}
+\section*{解答}
+
+\begin{proof}[\textbf{proof\quad 1}]
+問題文の $ S_t^n $により、
+\[  
+S_t^n = S_0 + \int_0^t \mu^n(S_s^n) S_s^n ds + \int_0^t \sigma^n(S_s^n) S_s^n dW_s, \quad S_t^n > 0,  
+\]  
+
+よって，$S_t^n$ に対し 
+\[  
+u^n(t, S_0) := \mathbb{E}[f(S_t^n)]  
+\]  
+と定義すると
+\[  
+\partial_t u^n + \mu^n(S_0) S_0 \partial_{S_0} u^n + \frac{(\sigma^n(S_0) S_0)^2}{2} \partial_{S_0}^2 u^n = 0  
+\]  
+を満たす( $u^n(0, S_0) = f(S_0)$)\\
+$ \nu (t) = u(T - t,S-t^{n})  $とし、伊藤公式によると、 
+
+\begin{flalign*}
+d\nu (t) &= -\partial_t u(T-t, S_t^n) dt + \partial_{S_0} u(T-t, S_t^n) dS_t^n \\
+               &+ \frac{1}{2}\partial_{S_0}^2 u(T-t, S_t^n) (dS_t^n)^2 
+\end{flalign*}
+
+
+
+ここで、 $dS_t^n = \mu^n(S_t^n) S_t^n dt + \sigma^n(S_t^n) S_t^n dW_t$ なので，  
+
+\[  
+(dS_t^n)^2 = (\sigma^n(S_t^n) S_t^n)^2 dt  
+\]  
+
+が成り立つ  
+
+そして，関数$u$は、 
+
+\[  
+\partial_t u + \mu S_0 \partial_{S_0} u + \frac{1}{2} \sigma^2 S_0^2 \partial_{S_0}^2 u = 0  
+\]  
+
+を満たすので，
+
+\begin{numcases}
+{}
+-\partial_t u(T-t, S_t^n) + \mu^n(S_t^n) S_t^n \partial_{S_0} u(T-t, S_t^n) +\frac{1}{2}(\sigma^n(S_t^n) S_t^n)^2 \partial_{S_0}^2 u(T-t, S_t^n)\label{1}\\
+-\partial_t u(T-t, S_t^n) + \mu S_t^n \partial_{S_0} u(T-t, S_t^n) + \frac{1}{2}\sigma^2 (S_t^n)^2 \partial_{S_0}^2 u(T-t, S_t^n)\label{2}
+\end{numcases}
+[\textbf{\ref{1}}] - [\textbf{\ref{2}}]により、ドリフト部分に
+$$ 
+\underbrace{\left(\mu^n(S_t^n)S_t^n - \mu(S_t^n)S_t^n\right)\partial_{S_0}u(T-t, S_t^n)}_{\mu^n-\mu の差分} + \underbrace{\frac{1}{2}\left((\sigma^n(S_t^n)S_t^n)^2 - (\sigma(S_t^n)S_t^n)^2\right)\partial_{S_0}^2u(T-t, S_t^n)}_{\sigma^n-\sigma の差分}  
+$$
+となる\\
+伊藤積分により、
+
+
+
+\[  
+\mathbb{E}[\nu (T)-\nu (0)] = \mathbb{E}\left[\int_0^T \left(\mu^n(S_s^n) - \mu(S_s^n)\right) S_s^n \partial_{S_0}u(T-t, S_t^n) + \frac{1}{2} \left((\sigma^n)^2 - \sigma^2\right)(S_s^n) (S_s^n)^2 \partial_{S_0}^2 u(T-t, S_t^n)\,ds\right].  
+\]  
+
+絶対値をとって，$\partial_{S_0} u(T-t, S_t^n)$, $\partial_{S_0}^2 u(T-t, S_t^n)$の上界 ($\|\cdot\|_\infty$) でまとめると，  
+
+\begin{flalign*}
+|\mathbb{E}[f(S_T^n)] - \mathbb{E}[f(S_T)]| = |\mathbb{E}[v(T) - v(0)]| &\leq \int_0^T \mathbb{E}\left[|\mu^n(S_s^n) - \mu(S_s^n)|\|\partial_{S_0}u(T-s,\cdot)\|_\infty\right]ds \\
+                                            &+ \int_{0}^{T} \mathbb{E}\left[|(\sigma^n)^2(S_s^n)-\sigma^2(S_s^n)|\|\partial^2_{s_0}u(T-s,\cdot)\|_\infty\right] dS 
+\end{flalign*}
+
+\end{proof}
+
+
+\begin{proof}[\textbf{proof\quad 2}]
+\[  
+\int_0^T \mathbb{E}[|\mu^n(S_s^n) - \mu|S_s^n]\|\partial_{S_0}u(T-s,\cdot)\|_\infty ds  
+\]  
+
+問(1)によって $|\mu^n(x) - \mu| \leq Cn^{-1}$ を用いると、  
+
+\[  
+|\mu^n(S_s^n) - \mu| \leq Cn^{-1}  
+\]  
+
+したがって、  
+
+\[  
+\mathbb{E}[|\mu^n(S_s^n) - \mu|S_s^n] \leq Cn^{-1}\mathbb{E}[S_s^n]  
+\]  
+
+ここで、$S_s^n$ は $S_0$ からの確率モデルであり
+
+\[  
+\int_0^T \mathbb{E}[|(\sigma^n(S_s^n))^2 - \sigma^2|]\|\partial_{S_0}^2u(T-s,\cdot)\|_\infty ds  
+\]  
+
+同様に、
+
+\[  
+|(\sigma^n(S_s^n))^2 - \sigma^2| = |\sigma^n(S_s^n) - \sigma| \cdot |\sigma^n(S_s^n) + \sigma|  
+\]  
+
+ここで、$\sigma^n$ と $\sigma$ は一様に有界であるため、$|\sigma^n(S_s^n) + \sigma| \leq 2\sigma_{\max}$ とすると  
+
+\[  
+|(\sigma^n(S_s^n))^2 - \sigma^2| \leq 2\sigma_{\max}Cn^{-1}  
+\]  
+
+したがって、  
+
+\[  
+\mathbb{E}[|(\sigma^n(S_s^n))^2 - \sigma^2|] \leq 2\sigma_{\max}Cn^{-1}  
+\]
+
+問題の条件$|\mu^n(x) - \mu| + |\sigma^n(x) - \sigma| \leq Cn^{-1}$ により、
+
+
+\[  
+\int_0^T Cn^{-1}\|\partial_{S_0}u(T-s,\cdot)\|_\infty ds \leq Cn^{-1} \int_0^T C_f ds = Cn^{-1}C_fT  
+\]  
+  
+
+先ほど、  
+
+\[  
+\mathbb{E}[(\sigma^n(S_s^n))^2 - \sigma^2] \leq 2\sigma_{\max}Cn^{-1}  
+\]  
+
+となった。したがって、  
+
+\[  
+\int_0^T 2\sigma_{\max}Cn^{-1}\|\partial_{S_0}^2 u(T-s,\cdot)\|_\infty ds \leq 2\sigma_{\max}Cn^{-1}C_fT  
+\]  
+
+以上より、  
+
+\[  
+|\mathbb{E}[f(S_T^n)] - \mathbb{E}[f(S_T)]| \leq Cn^{-1}C_fT + 2\sigma_{\max}Cn^{-1}C_fT  
+\]  
+
+ここで、$\sigma_{\max}$ は一様有界性から定数と見なせるため、したがって、  
+
+\[  
+|\mathbb{E}[f(S_T^n)] - \mathbb{E}[f(S_T)]| \leq (C + 2\sigma_{\max}C)n^{-1}C_fT \leq 2C_fCTn^{-1}  
+\]
+
+\ie\quad 
+
+$$|\mathbb{E}[f(S_T^n)] - \mathbb{E}[f(S_T)]| \leq 2C_f CTn^{-1}  $$
+\end{proof}
+
+
+
+
+\end{document}

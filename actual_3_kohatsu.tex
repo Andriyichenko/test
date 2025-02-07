@@ -1,0 +1,132 @@
+\documentclass[a4paper]{jsarticle}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\usepackage{otf}
+\usepackage{xspace}
+\usepackage{newpxtext}
+\usepackage{empheq,cases}
+% \renewcommand{\abstractname}{注意事項}
+% \renewcommand{\proofname}{\textbf{証明}}
+% \renewcommand{\qed}{\unskip\nobreak\quad\qedsymbol}
+\newtagform{textbf}[\textbf]{[}{]}
+\usetagform{textbf}
+\newcommand*{\ie}{\textbf{\textit{i.e.}}\@\xspace}
+% \usepackage[a4paper, top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\title{\vspace{-4cm}アクチュアリーのレポート問題}
+\author{YI Ran-21122200512}
+\date{\today}
+\begin{document}
+\maketitle
+%%%概要を出力したい人はこのように記述
+\vspace{-0.4cm}
+\section*{解答}
+\begin{proof}[\textbf{proof\quad 1.1}]
+  二つの独立なポアソン過程 $N^1$ と $N^2$ があり、それぞれのレートが $\lambda^1$ と $\lambda^2$ です。これらのジャンプ時刻は   
+  \[  
+  T_n^i = \sum_{j=1}^n \tau_j^i  
+  \]  
+で与えられ、${\tau_j^1 , j \in \mathbb{N}} と {\tau_j^2 , j \in \mathbb{N}}$ は独立である。\\
+$X = N_t^1, Y = N_t^2$ とし、それぞれ独立な $\mathrm{Poisson}(\lambda^1 t)$, $\mathrm{Poisson}(\lambda^2 t)$ に従う。このときの合計 $X+Y$ について、確率母関数$G$が  
+
+  \[  
+  G_{X+Y}(z) = E[z^{X+Y}] = E[z^X z^Y] = E[z^X]E[z^Y] \quad (|z| < 1)
+  \]  
+ここで、頻度パラメータ$\lambda t$のポアソン分布の母関数は、\\  
+$$ P(X = k) = \dfrac{(\lambda t)^n}{n!}e^{-\lambda t} $$
+よって、\\
+
+%左右两边写公式可以用$$\begin{aligned} 内容\quad 内容 \end{aligned}$$
+\[  
+\begin{aligned}  
+\mathbb{E}[z^X] &= \sum_{k=0}^{\infty} z^k \frac{(\lambda^1 t)^k}{k!} e^{-\lambda^1 t} \\
+                &= e^{-\lambda^1 t}\sum_{k=0}^{\infty}\frac{(\lambda^1 t z)^k}{k!} \\
+                &= e^{-\lambda^1 t} e^{\lambda^1 t z}\\
+                &= e^{\lambda^1 t(z-1)}  
+\end{aligned}  
+\hspace{6em}  %\quad or \qquad,1em:1个空格的意思
+\begin{aligned}  
+\mathbb{E}[z^Y] &= \sum_{k=0}^{\infty} z^k \frac{(\lambda^2 t)^k}{k!} e^{-\lambda^2 t} \\
+                &= e^{-\lambda^2 t}\sum_{k=0}^{\infty}\frac{(\lambda^2 t z)^k}{k!} \\
+                &= e^{-\lambda^2 t} e^{\lambda^2 t z}\\
+                &= e^{\lambda^2 t(z-1)}  
+\end{aligned}  
+\]    
+となる。\\
+したがって、
+\[
+  G_{X+Y}(z) = e^{\lambda^1 t(z-1)} \times e^{\lambda^2 t(z-1)} = e^{(\lambda ^1 + \lambda ^2)t(z-1)}.  
+\]  
+これは $\mathrm{Poisson}((\lambda ^1 + \lambda ^2)t)$-分布の確率母関数と同じ形である。したがって、$X+Y$ の分布は $\mathrm{Poisson}((\lambda ^1 + \lambda ^2)t)$ である。
+\end{proof}  
+
+\begin{proof}[\textbf{proof\quad 1.2}]
+  倒産理論では、企業や保険会社の収入と支出(損失)の確率過程をもとにモデル化される。
+  損失の発生をポアソン過程とした場合、ある複数のリスク(複数のクレーム・災害・損害など)がポアソン過程で解析するなら、
+  合計の損失到着はポアソンレートの単純な足し合わせとみなせる。
+\end{proof}  
+
+\newpage
+\begin{proof}[\textbf{proof\quad 2}]
+Cramer - Lundbergモデルの設定で、$U \sim e^{\mu^{-1}}$であるとき、
+
+\[  
+M_U(r) = E[e^{rU}] = \int_0^{\infty} e^{ru} \frac{1}{\mu} e^{-u/\mu} du = \frac{1}{\mu} \int_0^{\infty} e^{(r - \frac{1}{\mu})u} du\quad (r\in \mathbb{R}) 
+\]  
+
+ここで $\mu > 0$ かつ $r$ が十分小さければ積分は収束し、具体的に計算すると  
+
+\[  
+M_U(r) = \frac{1}{\mu} \left[ \frac{1}{r - \frac{1}{\mu}} e^{(r - \frac{1}{\mu})u} \right]_0^{\infty} = \frac{1}{\mu} \times \frac{1}{\frac{1}{\mu} - r} \quad (\text{ただし } r < \frac{1}{\mu}).  
+\]  
+
+したがって、指数分布の場合の調整係数を求める方程式は  
+
+\[  
+cr = \lambda \left( \frac{1}{1 - \mu r} - 1 \right),  
+\]  
+
+となる。これを解くと  
+
+\[  
+cr = \lambda \left( \frac{1 - (1 - \mu r)}{1 - \mu r} \right) = \lambda \left( \frac{\mu r}{1 - \mu r} \right).  
+\]  
+
+よって、
+\begin{flalign*}
+cr(1 - \mu r) &= \lambda \mu r\\   
+cr - c\mu r^2   &= \lambda \mu r\\  
+-c\mu r^2 + cr - \lambda \mu r &= 0\\  
+-c\mu r^2 + (c - \lambda \mu)r &= 0  
+\end{flalign*}
+この2次方程式の$r^2$項の係数が負なので、正値$r>0$を求めると
+$$ 
+  r \{-c\mu r + (c-\lambda\mu)\} = 0
+$$
+したがって、
+% \[  
+% \begin{numcases}  
+% r = 0 \\
+% -c \mu r + (c - \lambda) \mu = 0
+% \end{numcases}  
+% \] 
+\begin{numcases}
+  {}
+  r = 0 \\
+  -c \mu r + (c - \lambda) \mu = 0\label{quad}
+\end{numcases}
+式[\ref{quad}] により、
+$$
+-c\mu r = \lambda\mu - c,r = \dfrac{c-\lambda\mu}{c\mu}
+$$
+
+$c>\lambda\mu$を仮定すると、\ie\quad $ \dfrac{c-\lambda\mu}{c\mu} $は正になる。\\
+したがって、
+$$ r = \dfrac{c-\lambda\mu}{c\mu}, \quad\ell (r) = cr - \lambda (M_U(r)-1) = 0$$
+$\ell(r) = 0$をみたす 正の解$r = \gamma$ を調整係数とすると\\
+$$ -\gamma = \dfrac{\lambda\mu - c}{c\mu}$$
+となる。
+
+
+\end{proof}
+\end{document}

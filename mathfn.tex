@@ -1,0 +1,439 @@
+\documentclass[a4paper,11pt]{jsarticle}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\usepackage{otf}
+\usepackage{xspace}
+\usepackage{newpxtext}
+\renewcommand{\abstractname}{注意事項}
+% \renewcommand{\qed}{\unskip\nobreak\quad\qedsymbol}
+\newtagform{textbf}[\textbf]{[}{]}
+\usetagform{textbf}
+\newcommand*{\ie}{\textbf{\textit{i.e.}}\@\xspace}
+% \usepackage[a4paper, top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+\title{\vspace{-4cm}数理ファイナンスのレポート問題}
+\author{YI Ran-21122200512}
+\date{\today}
+\begin{document}
+\maketitle
+%%%概要を出力したい人はこのように記述
+\vspace{-0.4cm}
+\section*{解答}
+\begin{proof}[\textbf{proof\quad 1.1}]
+  $\frac{dA_t}{A_t}$ を求めるために、まず、$\log A_t = \log X_i(t) + \log X_j(t)$ と定義すると：  
+
+\[  
+d(\log A_t) = d(\log X_i(t)) + d(\log X_j(t))  
+\]  
+
+伊藤の公式により、$\log X_i(t)$ については：  
+
+\[  
+d(\log X_i(t)) = \frac{dX_i(t)}{X_i(t)} - \frac{\sigma_i^2}{2}dt  
+\]  
+
+同様に、$\log X_j(t)$ については：  
+
+\[  
+d(\log X_j(t)) = \frac{dX_j(t)}{X_j(t)} - \frac{\sigma_j^2}{2}dt  
+\]  
+
+したがって：  
+
+\[  
+d(\log A_t) = \left(\frac{dX_i(t)}{X_i(t)} + \frac{dX_j(t)}{X_j(t)}\right) - \frac{\sigma_i^2 + \sigma_j^2}{2}dt  
+\]  
+
+ここで、$\frac{dX_i(t)}{X_i(t)} = \beta_idt + \sigma_idW_i(t)$ および $\frac{dX_j(t)}{X_j(t)} = \beta_jdt + \sigma_jdW_j(t)$ を代入すると：  
+
+\[  
+d(\log A_t) = (\beta_i + \beta_j)dt + \sigma_idW_i(t) + \sigma_jdW_j(t) - \frac{\sigma_i^2 + \sigma_j^2}{2}dt  
+\]  
+
+整理すると：  
+
+\[  
+d(\log A_t) = \left(\beta_i + \beta_j - \frac{\sigma_i^2 + \sigma_j^2}{2}\right)dt + \sigma_idW_i(t) + \sigma_jdW_j(t)  
+\]  
+
+$\frac{dA_t}{A_t}$ を得るために、$d(\log A_t)$ に対して指数変換により、  
+
+\[  
+\frac{dA_t}{A_t} = d(\log A_t) + \frac{1}{2}(\sigma_i^2 + \sigma_j^2)dt  
+\]  
+
+これにより：  
+
+\[  
+\frac{dA_t}{A_t} = \left(\beta_i + \beta_j - \frac{\sigma_i^2 + \sigma_j^2}{2}\right)dt + \sigma_idW_i(t) + \sigma_jdW_j(t) + \frac{\sigma_i^2 + \sigma_j^2}{2}dt  
+\]  
+
+ドリフト項を整理すると：  
+
+\[  
+\beta_i + \beta_j - \frac{\sigma_i^2 + \sigma_j^2}{2} + \frac{\sigma_i^2 + \sigma_j^2}{2} = \beta_i + \beta_j  
+\]  
+
+最終的に：  
+
+\[  
+\frac{dA_t}{A_t} = (\beta_i + \beta_j)dt + \sigma_idW_i(t) + \sigma_jdW_j(t)  
+\]
+\end{proof}
+
+\begin{proof}[\textbf{proof\quad 1.2}]
+  次に、$\frac{dY_t}{Y_t}$ を求める。$\log Y_t = \sum_{i=1}^n \log X_i(t)$ と定義すると：  
+
+  \[  
+  d(\log Y_t) = \sum_{i=1}^n d(\log X_i(t))  
+  \]  
+  
+  伊藤の公式により、各 $\log X_i(t)$ について：  
+  
+  \[  
+  d(\log X_i(t)) = \frac{dX_i(t)}{X_i(t)} - \frac{\sigma_i^2}{2}dt  
+  \]  
+  
+  したがって：  
+  
+  \[  
+  d(\log Y_t) = \sum_{i=1}^n \left(\frac{dX_i(t)}{X_i(t)} - \frac{\sigma_i^2}{2}dt\right) = \sum_{i=1}^n \frac{dX_i(t)}{X_i(t)} - \frac{1}{2}\sum_{i=1}^n \sigma_i^2dt  
+  \]  
+  
+  ここで $\frac{dX_i(t)}{X_i(t)} = \beta_idt + \sigma_idW_i(t)$ を代入すると：  
+  
+  \[  
+  d(\log Y_t) = \left(\sum_{i=1}^n \beta_i - \frac{1}{2}\sum_{i=1}^n \sigma_i^2\right)dt + \sum_{i=1}^n \sigma_idW_i(t)  
+  \]  
+  
+  $\frac{dY_t}{Y_t}$ を得るために、$d(\log Y_t)$ に対して指数変換より、\\  
+  
+  \[  
+  \frac{dY_t}{Y_t} = d(\log Y_t) + \frac{1}{2}\sum_{i=1}^n \sigma_i^2dt  
+  \]  
+  
+  これにより：  
+  
+  \[  
+  \frac{dY_t}{Y_t} = \left(\sum_{i=1}^n \beta_i - \frac{1}{2}\sum_{i=1}^n \sigma_i^2\right)dt + \sum_{i=1}^n \sigma_idW_i(t) + \frac{1}{2}\sum_{i=1}^n \sigma_i^2dt  
+  \]  
+  
+  ドリフト項を整理すると：  
+  
+  \[  
+  \sum_{i=1}^n \beta_i - \frac{1}{2}\sum_{i=1}^n \sigma_i^2 + \frac{1}{2}\sum_{i=1}^n \sigma_i^2 = \sum_{i=1}^n \beta_i  
+  \]  
+  
+  最終的に：  
+  
+  \[  
+  \frac{dY_t}{Y_t} = \left(\sum_{i=1}^n \beta_i\right)dt + \sum_{i=1}^n \sigma_idW_i(t)  
+  \]
+  
+\end{proof}
+
+
+
+
+\begin{proof}[\textbf{proof\quad 1.3}]
+
+まず、$Z_t = X_i(t)X_j^{-1}(t)$ について、$d(X_j^{-1}(t))$ を求める。\\  
+
+$f(X_j(t)) = X_j(t)^{-1}を$ 伊藤の公式により、  
+
+\[  
+df = f'(X_j(t))dX_j(t) + \frac{1}{2}f''(X_j(t))(dX_j(t))^2  
+\]  
+
+導関数を計算すると：  
+
+\[  
+f'(X_j(t)) = -X_j(t)^{-2}  
+\]  
+\[  
+f''(X_j(t)) = 2X_j(t)^{-3}  
+\]  
+
+したがって：  
+
+\[  
+d(X_j^{-1}(t)) = -X_j(t)^{-2}dX_j(t) + \frac{1}{2} \cdot 2X_j(t)^{-3}(dX_j(t))^2  
+\]  
+
+これを簡略化すると：  
+
+\[  
+d(X_j^{-1}(t)) = -X_j(t)^{-2}dX_j(t) + X_j(t)^{-3}(dX_j(t))^2  
+\]  
+
+ここで $dX_j(t) = \beta_jX_j(t)dt + \sigma_jX_j(t)dW_j(t)$ および $(dX_j(t))^2 = \sigma_j^2X_j(t)^2dt$ を代入すると：  
+
+\[  
+d(X_j^{-1}(t)) = -X_j(t)^{-2}(\beta_jX_j(t)dt + \sigma_jX_j(t)dW_j(t)) + X_j(t)^{-3}(\sigma_j^2X_j(t)^2dt)  
+\]  
+
+各項を整理すると：  
+
+\[  
+-X_j(t)^{-2} \cdot \beta_jX_j(t)dt = -\beta_jX_j(t)^{-1}dt  
+\]  
+\[  
+-X_j(t)^{-2} \cdot \sigma_jX_j(t)dW_j(t) = -\sigma_jX_j(t)^{-1}dW_j(t)  
+\]  
+\[  
+X_j(t)^{-3} \cdot \sigma_j^2X_j(t)^2dt = \sigma_j^2X_j(t)^{-1}dt  
+\]  
+
+最終的に：  
+
+\[  
+d(X_j^{-1}(t)) = X_j(t)^{-1}[(-\beta_j + \sigma_j^2)dt - \sigma_jdW_j(t)]  
+\]
+  
+\end{proof}
+
+
+\begin{proof}[\textbf{proof\quad 2.1}]
+$\Phi_T = (X_T - X_S)^+$ ($S < T$) の場合\\  
+
+$V_0 = E^\mathbb{Q}[(X_T - X_S)^+]$ を求めると。\\  
+
+$X_S = x\exp\left(-\frac{\sigma^2}{2}S + \sigma W_S\right)$ および $X_T = x\exp\left(-\frac{\sigma^2}{2}T + \sigma W_T\right)$ が与えられている。\\
+
+
+$X_T$ は以下のように  
+
+\[  
+X_T = X_S\exp\left(-\frac{\sigma^2}{2}(T-S) + \sigma(W_T - W_S)\right)  
+\]  
+
+与えられた $X_S$ に対して、$X_T$ は平均 $X_S$ 、分散 $\sigma^2(T-S)$ の対数正規分布に従う。\\  
+
+したがって、$(X_T - X_S)^+$ は行使価格 $X_S$ 、満期 $T-S$ の標準的なヨーロピアン・コール・オプションと類似している。  
+
+標準的なコール・オプション公式によると
+
+\[  
+C(X_S, X_S, T-S, \sigma) = X_SN\left(d + \sigma\sqrt{T-S}\right) - X_SN(d)  
+\]  
+
+ここで、  
+
+\[  
+d = \frac{\log\left(\frac{X_S}{X_S}\right)}{\sigma\sqrt{T-S}} - \frac{\sigma\sqrt{T-S}}{2} = -\frac{\sigma\sqrt{T-S}}{2}  
+\]  
+
+したがって、  
+
+\[  
+C(X_S, X_S, T-S, \sigma) = X_S\left[N\left(-\frac{\sigma\sqrt{T-S}}{2} + \sigma\sqrt{T-S}\right) - N\left(-\frac{\sigma\sqrt{T-S}}{2}\right)\right]  
+\]  
+
+簡略化すると：  
+
+\[  
+C(X_S, X_S, T-S, \sigma) = X_S\left[N\left(\frac{\sigma\sqrt{T-S}}{2}\right) - N\left(-\frac{\sigma\sqrt{T-S}}{2}\right)\right] = X_S\left[2N\left(\frac{\sigma\sqrt{T-S}}{2}\right) - 1\right]  
+\]  
+
+$X_S$ は $\mathbb{Q}$ 測度の下でマルチンゲールであり、$E^\mathbb{Q}[X_S] = x$ であるため、  
+
+\[  
+V_0 = x\left(2N\left(\frac{\sigma\sqrt{T-S}}{2}\right) - 1\right)  
+\]
+  
+\end{proof}
+
+
+\begin{proof}[\textbf{proof\quad 2.2}]
+$\Phi_T = (Y_T - K)^+$ ただし $Y_T = (X_T)^\gamma$ の場合\\
+
+$V_0 = E^\mathbb{Q}[(X_T^\gamma - K)^+]$ を求めると。\\  
+
+まず、$Y_T = (X_T)^\gamma$ は以下のよう  
+
+\[  
+Y_T = (X_T)^\gamma = x^\gamma \exp\left(-\frac{\gamma\sigma^2}{2}T + \gamma\sigma W_T\right)  
+\]  
+
+これは対数正規分布に従うが、パラメータが異なる。 \\  
+
+したがって、$Y_T$ の期待値は：  
+
+\[  
+E^\mathbb{Q}[Y_T] = x^\gamma \exp\left(\frac{\gamma(\gamma-1)\sigma^2T}{2}\right)  
+\]  
+
+ここで、$(Y_T - K)^+$ は行使価格 $K$ の原資産 $Y_T$ に対する標準的なヨーロピアン・コールオプションとみなせる。  
+
+標準的なコールオプション公式を適用すると：  
+
+\[  
+V_0 = C(Y_T, K, T, \gamma\sigma) = Y_TN\left(d + \gamma\sigma\sqrt{T}\right) - KN(d)  
+\]  
+
+ただし、  
+
+\[  
+d = \frac{\log\left(\frac{Y_T}{K}\right)}{\gamma\sigma\sqrt{T}} - \frac{\gamma\sigma\sqrt{T}}{2}  
+\]  
+ 
+
+$Y_T$ が対数正規分布に従うことから、対数正規分布の期待値の公式を直接適用できる。  
+
+したがって、  
+
+\[  
+V_0 = x^\gamma \exp\left(\frac{\gamma(\gamma-1)\sigma^2T}{2}\right)N\left(\frac{\log\left(\frac{x}{K^{1/\gamma}}\right)}{\sigma\sqrt{T}} - \frac{\sigma\sqrt{T}}{2} + \gamma\sigma\sqrt{T}\right) - KN\left(\frac{\log\left(\frac{x}{K^{1/\gamma}}\right)}{\sigma\sqrt{T}} - \frac{\sigma\sqrt{T}}{2}\right)  
+\]
+  
+\end{proof}
+
+\begin{proof}[\textbf{proof\quad 2.3}]
+$\Phi_T = (A_T - K)^+$ の場合
+
+  ここで、$A_T = \exp\left(\frac{1}{T} \int_0^T \log X_t \, dt\right)$ と定義する。  \\ 
+  
+  まず、$\log A_T = \frac{1}{T} \int_0^T \log X_t \, dt$ \\  
+  
+  $X_t = x \exp\left(-\frac{\sigma^2}{2}t + \sigma W_t\right)$ により、  
+  
+  \[  
+  \log X_t = \log x - \frac{\sigma^2}{2}t + \sigma W_t  
+  \]  
+  
+  したがって：  
+  
+  \[  
+  \log A_T = \frac{1}{T} \int_0^T \left(\log x - \frac{\sigma^2}{2}t + \sigma W_t\right) dt = \log x - \frac{\sigma^2}{4}T + \frac{\sigma}{T} \int_0^T W_t \, dt  
+  \]  
+  
+  ここで、$\int_0^T t \, dt = \frac{T^2}{2}$ により、\\  
+  
+  また、$\int_0^T W_t \, dt$ はガウス確率変数であり、平均値 0、分散 $\frac{T^3}{3}$ がある。\\  
+  
+  したがって：  
+  
+  \[  
+  \log A_T = \log x - \frac{\sigma^2}{4}T + \sigma \cdot \frac{1}{T} \cdot \frac{T^3}{3} Z = \log x - \frac{\sigma^2}{4}T + \sigma TZ  
+  \]  
+  
+  ここで、$Z \sim \mathcal{N}(0,1)$ 。\\  
+  
+  したがって：  
+  
+  \[  
+  A_T = x \exp\left(-\frac{\sigma^2}{4}T + \sigma TZ\right)  
+  \]  
+  
+  これは $X_T$ に似ていますが、パラメータが異なる。\\  
+  
+  コールオプションの評価により、\\
+  
+  $(A_T - K)^+$ は行使価格 $K$、基礎資産 $A_T$ の標準的なヨーロピアン・コールオプションと類似している。  
+  
+  標準的なコールオプション公式を使用すると：  
+  
+  \[  
+  V_0 = C(A_T, K, T, \sigma) = A_T N\left(d + \sigma\sqrt{T}\right) - K N(d)  
+  \]  
+  
+  ここで：  
+  
+  \[  
+  d = \frac{\log\left(\frac{A_T}{K}\right)}{\sigma\sqrt{T}} - \frac{\sigma\sqrt{T}}{2}  
+  \]  
+   
+  
+  $A_T$ が対数正規分布に従うことから、対数正規分布の期待値の公式を直接適用できる。\\  
+  
+  したがって：  
+  
+  \[  
+  V_0 = x \exp\left(-\frac{\sigma^2}{4}T\right) N\left(\frac{\log\left(\frac{x}{K}\right)}{\sigma\sqrt{T}} - \frac{\sigma\sqrt{T}}{4}\right) - K N\left(\frac{\log\left(\frac{x}{K}\right)}{\sigma\sqrt{T}} - \frac{3\sigma\sqrt{T}}{4}\right)  
+  \]
+\end{proof}
+
+
+\begin{proof}[\textbf{proof\quad 3.1}]
+
+まず、
+
+\[  
+\mathbf{RND}[\frac{d\mathbb{Q}^f}{d\mathbb{Q}^d}] = e^{-\frac{\nu^2}{2}t+\nu W_X(t)}  
+\]  
+
+Girsanovの定理により、
+\[  
+\tilde{W}_X(t) = W_X(t) - \langle W_X,\cdot\rangle_t  
+\]  
+
+ここで、$\langle W_X,\cdot\rangle_t$ はドリフト項であり、RNDにより決定される。\\
+この場合、ドリフト項は：  
+
+\[  
+\langle W_X,\cdot\rangle_t = \nu t  
+\]  
+
+したがって、$\mathbb{Q}^f$ の下では、$W_X(t)$ は以下のように表す  
+
+\[  
+\tilde{W}_X(t) = W_X(t) - \nu t  
+\]  
+
+次に、測度 $\mathbb{Q}^f$ の下での $X(t)$ の確率微分方程式（SDE）を導出する  
+
+\[  
+\frac{dX(t)}{X(t)} = (r_d(t) - r_f(t))dt + \nu dW_X(t)  
+\]  
+
+したがって、
+
+\[  
+\frac{dX(t)}{X(t)} = (r_d(t) - r_f(t))dt + \nu d\tilde{W}_X(t)  
+\]
+
+  
+\end{proof}
+
+
+\begin{proof}[\textbf{proof\quad 3.2}]
+ 
+
+次に、測度 $\mathbb{Q}^d$ の下で $r_f(t)$ のSDEを導出する必要がある。測度 $\mathbb{Q}^f$ の下では、$r_f(t)$ のSDEは以下のように表す  
+
+\[  
+dr_f(t) = (\theta_f(t) - \phi_f r_f(t))dt + \sigma_f dW_f(t)  
+\]  
+
+
+RNDより、ブラウン運動 $W_f(t)$ は $\mathbb{Q}^d$ 測度下で以下のドリフト項を持つ  
+
+\[  
+\langle W_f,\cdot\rangle_t = \rho\nu t  
+\]  
+
+ここで、$\rho$ は $W_f(t)$ と $W_X(t)$ の間の相関係数を表す
+
+したがって、$\mathbb{Q}^d$ 測度下では、$W_f(t)$ は以下のように変換される  
+
+\[  
+\tilde{W}_f(t) = W_f(t) - \rho\nu t  
+\]  
+
+ここで、$\mathbb{Q}^d$ 測度下での $r_f(t)$ のSDEを導出すると 
+
+\[  
+dr_f(t) = (\theta_f(t) - \phi_f r_f(t))dt + \sigma_f dW_f(t)  
+\]  
+
+したがって、  
+
+\[  
+dr_f(t) = (\theta_f(t) - \phi_f r_f(t) + \sigma_f\rho\nu)dt + \sigma_f d\tilde{W}_f(t)  
+\]
+\end{proof}
+
+
+\end{document}
